@@ -1,9 +1,9 @@
 CC=gcc
 
-all: sayan
+all: mri
 
-sayan: imageSegment.o main.o readImage.o writeImage.o
-	$(CC) imageSegment.o main.o readImage.o writeImage.o -o sayan
+mri: imageSegment.o main.o readImage.o writeImage.o
+	$(CC) imageSegment.o main.o readImage.o writeImage.o -o mri
 
 imageSegment.o: imageSegment.c writeImage.h
 	$(CC) -c imageSegment.c
@@ -21,4 +21,4 @@ writeImage.o: writeImage.c
 
 
 clean:
-	rm *.o sayan
+	-rm *.o mri

@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   main.cpp
  * Author: sayandeep
  *
@@ -16,13 +16,18 @@
 #include "readImage.h"
 
 int main(int argc, char *argv[]) {
-    int i, j;
-    int N, M, Q;
-    int **imageMatrix;
-    FILE *fp;
+    int i=0, j=0;
+    int N=0, M=0, Q=0;
+    int **imageMatrix=NULL;
+    FILE *fp=NULL;
 
     readImage(argv[1], &imageMatrix, &M, &N, &Q);
-    imageSegment(imageMatrix, XAXIS, YAXIS);
+    imageSegment(imageMatrix, YAXIS, XAXIS);
+
+    for (i=0;i<YAXIS;i++) {
+        free(imageMatrix[i]);
+    }
+    free(imageMatrix);
 
     return 0;
 }

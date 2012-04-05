@@ -8,7 +8,7 @@
 #ifndef WRITEIMAGE_H
 #define	WRITEIMAGE_H
 
-void writeImage (int ***,int,int,int);
+void writeImage (int **,int,int,int);
 
 #endif	/* WRITEIMAGE_H */
 

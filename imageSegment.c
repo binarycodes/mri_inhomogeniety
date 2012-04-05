@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   imageSegment.H
  * Author: sayandeep
  *
@@ -15,76 +15,80 @@
 
 void imageSegment(int **imageMatrix,int y,int x)
 {
-    int ***imageMatrix_bck,***imageMatrix_csf,***imageMatrix_gm,***imageMatrix_wm;
-    int i,j,flag=0;
-    
-    *imageMatrix_bck=(int **)malloc(YAXIS * sizeof(int *));
-    for(i=0;i<YAXIS;i++)
-        (*imageMatrix_bck)[i]=(int *)malloc(XAXIS * sizeof(int));
+    int **imageMatrix_bck=NULL;
+    int **imageMatrix_csf=NULL;
+    int **imageMatrix_gm=NULL;
+    int **imageMatrix_wm=NULL;
+    int i=0,j=0,flag=0;
 
-    *imageMatrix_csf=(int **)malloc(YAXIS * sizeof(int *));
+    imageMatrix_bck = (int **) malloc(YAXIS * sizeof(int *));
     for(i=0;i<YAXIS;i++)
-        (*imageMatrix_csf)[i]=(int *)malloc(XAXIS * sizeof(int));
+        imageMatrix_bck[i]=(int *)malloc(XAXIS * sizeof(int));
 
-    *imageMatrix_gm=(int **)malloc(YAXIS * sizeof(int *));
+    imageMatrix_csf=(int **)malloc(YAXIS * sizeof(int *));
     for(i=0;i<YAXIS;i++)
-        (*imageMatrix_gm)[i]=(int *)malloc(XAXIS * sizeof(int));
+        imageMatrix_csf[i]=(int *)malloc(XAXIS * sizeof(int));
 
-    *imageMatrix_wm=(int **)malloc(YAXIS * sizeof(int *));
+    imageMatrix_gm=(int **)malloc(YAXIS * sizeof(int *));
     for(i=0;i<YAXIS;i++)
-        (*imageMatrix_wm)[i]=(int *)malloc(XAXIS * sizeof(int));
+        imageMatrix_gm[i]=(int *)malloc(XAXIS * sizeof(int));
 
-    for(i=0;i<y;i++)
-    {
-        for(j=0;j<x;j++)
-        {
-            *imageMatrix_bck[i][j]=imageMatrix[i][j];
-            *imageMatrix_csf[i][j]=imageMatrix[i][j];
-            *imageMatrix_gm[i][j]=imageMatrix[i][j];
-            *imageMatrix_wm[i][j]=imageMatrix[i][j];
+    imageMatrix_wm=(int **)malloc(YAXIS * sizeof(int *));
+    for(i=0;i<YAXIS;i++)
+        imageMatrix_wm[i]=(int *)malloc(XAXIS * sizeof(int));
+
+
+
+    for(i=0;i<y;i++) {
+        for(j=0;j<x;j++) {
+            imageMatrix_bck[i][j]=imageMatrix[i][j];
+            imageMatrix_csf[i][j]=imageMatrix[i][j];
+            imageMatrix_gm[i][j]=imageMatrix[i][j];
+            imageMatrix_wm[i][j]=imageMatrix[i][j];
         }
     }
-    for(i=0;i<y;i++)
-    {
-        for(j=0;j<x;j++)
-        {
-            if(*imageMatrix_bck[i][j]>=22)
-            {
-                *imageMatrix_bck[i][j]=0;
+
+
+    for(i=0;i<y;i++) {
+        for(j=0;j<x;j++) {
+            if(imageMatrix_bck[i][j]>=22) {
+                imageMatrix_bck[i][j]=0;
             }
-            if(*imageMatrix_csf[i][j]>22 && *imageMatrix_csf[i][j]<=75)
-            {
-                *imageMatrix_csf[i][j]=*imageMatrix_csf[i][j];
+
+            if(imageMatrix_csf[i][j]<=22 || imageMatrix_csf[i][j]>75) {
+                imageMatrix_csf[i][j]=0;
             }
-            else{
-                *imageMatrix_csf[i][j]=0;
+
+            if(imageMatrix_gm[i][j]<=75 && imageMatrix_gm[i][j]>131) {
+                imageMatrix_gm[i][j]=0;
             }
-            if(*imageMatrix_gm[i][j]>75 && *imageMatrix_gm[i][j]<=131)
-            {
-                *imageMatrix_gm[i][j]=*imageMatrix_gm[i][j];
-            }
-            else{
-                *imageMatrix_gm[i][j]=0;
-            }
-            if(*imageMatrix_wm[i][j]>131 && *imageMatrix_gm[i][j]<=255)
-            {
-                *imageMatrix_wm[i][j]=*imageMatrix_wm[i][j];
-            }
-            else{
-                *imageMatrix_wm[i][j]=0;
+
+            if(imageMatrix_wm[i][j]<=131 && imageMatrix_gm[i][j]>255) {
+                imageMatrix_wm[i][j]=0;
             }
         }
     }
+
     /*for(i=0;i<y;i++)
-    {
-        for(j=0;j<x;j++)
-        {
-            printf("\t%d",imageMatrix_csf[i][j]);
-        }
-    }*/
-    printf("WHOOO");
+      {
+      for(j=0;j<x;j++)
+      {
+      printf("\t%d",imageMatrix_csf[i][j]);
+      }
+      }*/
+
     flag=2;
     writeImage(imageMatrix_csf,YAXIS,XAXIS,flag);
 
+    for(i=0;i<YAXIS;i++) {
+        free(imageMatrix_bck[i]);
+        free(imageMatrix_csf[i]);
+        free(imageMatrix_gm[i]);
+        free(imageMatrix_wm[i]);
+    }
+    free(imageMatrix_bck);
+    free(imageMatrix_csf);
+    free(imageMatrix_gm);
+    free(imageMatrix_wm);
 }
 

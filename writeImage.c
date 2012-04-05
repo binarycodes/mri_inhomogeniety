@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   writeImage.h
  * Author: sayandeep
  *
@@ -16,16 +16,16 @@
 
 #include "config.h"
 
-void writeImage(int ***imageMatrix,int y,int x,int flag)
+void writeImage(int **imageMatrix,int y,int x,int flag)
 {
-    char *filename;
+    char filename[50];
     char folder[20]="segmented_source";
-    
+
     int i,j,counter=0;
     FILE *img;
     mkdir(folder,S_IRWXU);
     chdir(folder);
-    
+
     if(flag==1)
         strcpy(filename,"seg_bck.pgm");
     if(flag==2)
@@ -39,22 +39,21 @@ void writeImage(int ***imageMatrix,int y,int x,int flag)
 
     fprintf(img,"P2\n#created by sdr\n181 217\n255\n");
 
-    /*for(i=0;i<y;i++)
+    for(i=0;i<y;i++)
     {
         for(j=0;j<x;j++)
         {
             fprintf(img,"%d\t",imageMatrix[i][j]);
-            //counter=counter+181;
         }
         fprintf(img,"\n");
-    }*/
+    }
     fclose(img);
     /*for(i=0;i<YAXIS;i++)
-    {
-        for(j=0;j<XAXIS;j++)
-        {
-            printf("\t%d",imageMatrix[i][j]);
-        }
-    }*/
+      {
+      for(j=0;j<XAXIS;j++)
+      {
+      printf("\t%d",imageMatrix[i][j]);
+      }
+      }*/
 }
 
