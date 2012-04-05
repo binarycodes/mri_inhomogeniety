@@ -7,36 +7,43 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include <sys/types.h>
-#include <sys/stat.h>
+#include <errno.h>
+#include <string.h>
 
 #include "config.h"
 #include "writeImage.h"
 
-void imageSegment(int **imageMatrix,int y,int x)
-{
-    int **imageMatrix_bck=NULL;
-    int **imageMatrix_csf=NULL;
-    int **imageMatrix_gm=NULL;
-    int **imageMatrix_wm=NULL;
+void dynamic_array(int ***array, int y, int x) {
+    int i=0;
+
+    *array = (int **) malloc(y * sizeof(int *));
+
+    if (*array == NULL) {
+        printf("cannot allocate memory -- %s\n",strerror(errno));
+        exit(EXIT_FAILURE);
+    }
+
+    for(i=0;i<y;i++) {
+        (*array)[i]=(int *)malloc(x * sizeof(int));
+        if ((*array)[i] == NULL) {
+            printf("cannot allocate memory -- %s\n",strerror(errno));
+            exit(EXIT_FAILURE);
+        }
+    }
+}
+
+
+void imageSegment(int **imageMatrix,int y,int x) {
+    int **imageMatrix_bck;
+    int **imageMatrix_csf;
+    int **imageMatrix_gm;
+    int **imageMatrix_wm;
     int i=0,j=0,flag=0;
 
-    imageMatrix_bck = (int **) malloc(YAXIS * sizeof(int *));
-    for(i=0;i<YAXIS;i++)
-        imageMatrix_bck[i]=(int *)malloc(XAXIS * sizeof(int));
-
-    imageMatrix_csf=(int **)malloc(YAXIS * sizeof(int *));
-    for(i=0;i<YAXIS;i++)
-        imageMatrix_csf[i]=(int *)malloc(XAXIS * sizeof(int));
-
-    imageMatrix_gm=(int **)malloc(YAXIS * sizeof(int *));
-    for(i=0;i<YAXIS;i++)
-        imageMatrix_gm[i]=(int *)malloc(XAXIS * sizeof(int));
-
-    imageMatrix_wm=(int **)malloc(YAXIS * sizeof(int *));
-    for(i=0;i<YAXIS;i++)
-        imageMatrix_wm[i]=(int *)malloc(XAXIS * sizeof(int));
-
+    dynamic_array(&imageMatrix_bck,y,x);
+    dynamic_array(&imageMatrix_csf,y,x);
+    dynamic_array(&imageMatrix_gm,y,x);
+    dynamic_array(&imageMatrix_wm,y,x);
 
 
     for(i=0;i<y;i++) {
@@ -68,14 +75,6 @@ void imageSegment(int **imageMatrix,int y,int x)
             }
         }
     }
-
-    /*for(i=0;i<y;i++)
-      {
-      for(j=0;j<x;j++)
-      {
-      printf("\t%d",imageMatrix_csf[i][j]);
-      }
-      }*/
 
     flag=2;
     writeImage(imageMatrix_csf,YAXIS,XAXIS,flag);
