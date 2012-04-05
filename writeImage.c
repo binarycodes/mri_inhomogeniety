@@ -4,18 +4,19 @@
  *
  * Created on 4 April, 2012, 4:12 PM
  */
-#include <iostream>
-#include <cstdlib>
-#include <cstdio>
-#include <cstdlib>
-#include <cstring>
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <cmath>
+#include <unistd.h>
+#include <math.h>
 
 #include "config.h"
 
-void writeImage(int **imageMatrix,int y,int x,int flag)
+void writeImage(int ***imageMatrix,int y,int x,int flag)
 {
     char *filename;
     char folder[20]="segmented_source";
@@ -38,9 +39,6 @@ void writeImage(int **imageMatrix,int y,int x,int flag)
 
     fprintf(img,"P2\n#created by sdr\n181 217\n255\n");
 
-    imageMatrix=(int **)malloc(YAXIS * sizeof(int *));
-    for(i=0;i<YAXIS;i++)
-        imageMatrix[i]=(int *)malloc(XAXIS * sizeof(int *));
     /*for(i=0;i<y;i++)
     {
         for(j=0;j<x;j++)
@@ -51,12 +49,12 @@ void writeImage(int **imageMatrix,int y,int x,int flag)
         fprintf(img,"\n");
     }*/
     fclose(img);
-    for(i=0;i<YAXIS;i++)
+    /*for(i=0;i<YAXIS;i++)
     {
         for(j=0;j<XAXIS;j++)
         {
             printf("\t%d",imageMatrix[i][j]);
         }
-    }
+    }*/
 }
 

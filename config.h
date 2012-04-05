@@ -8,9 +8,8 @@
 #ifndef CONFIG_H
 #define	CONFIG_H
 
-const int XAXIS = 181;
-const int YAXIS = 217;
+#define XAXIS  181
+#define YAXIS  217
 
 
 #endif	/* CONFIG_H */
-

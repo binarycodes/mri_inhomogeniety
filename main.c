@@ -5,9 +5,9 @@
  * Created on 2 April, 2012, 1:32 PM
  */
 
-#include <cstdio>
-#include <cstdlib>
-#include <cstring>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 

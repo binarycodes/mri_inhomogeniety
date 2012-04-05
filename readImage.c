@@ -1,6 +1,6 @@
 #include <stdio.h>
-#include <cstdlib>
-#include <cstring>
+#include <stdlib.h>
+#include <string.h>
 
 void readImage(char fname[80], int ***imageMatrix, int *m, int *n, int *max) {
     /*	fname[80]	- image file name
