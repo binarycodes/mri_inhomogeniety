@@ -4,9 +4,9 @@ COMPILER_OPTIONS=-Wall -pedantic
 all: mri
 
 mri: imageSegment.o main.o readImage.o writeImage.o
-	$(CC) $(COMPILER_OPTIONS) imageSegment.o main.o readImage.o writeImage.o -o mri
+	$(CC) $(COMPILER_OPTIONS) imageSegment.o main.o readImage.o writeImage.o sobelGradient.c -o mri
 
-imageSegment.o: imageSegment.c writeImage.h
+imageSegment.o: imageSegment.c
 	$(CC) $(COMPILER_OPTIONS) -c imageSegment.c
 
 main.o: main.c
@@ -17,6 +17,9 @@ readImage.o: readImage.c
 
 writeImage.o: writeImage.c
 	$(CC) $(COMPILER_OPTIONS) -c writeImage.c
+
+sobelGradient.o:sobelGradient.c
+	$(CC) $(COMPILER_OPTIONS) -c sobelGradient.c
 
 .phony: clean
 
