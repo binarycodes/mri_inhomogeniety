@@ -85,7 +85,7 @@ void imageSegment(int **imageMatrix,int y,int x) {
         }
     }
 
-    writeImage(imageMatrix_seg,YAXIS,XAXIS);
+    writeImage(imageMatrix_seg,YAXIS,XAXIS,itr);
 
 
 	/* all that is allocated must be de-allocated */
