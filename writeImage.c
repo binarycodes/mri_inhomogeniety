@@ -23,19 +23,19 @@ void writeImage(int ***imageMatrix,int y,int x) {
 
 
     if(chdir(folder)!=0) {
-       /* printf("cannot create directory: %s -- %s\n",folder,strerror(errno));
-        exit(EXIT_FAILURE);*/
-    if (mkdir(folder,(S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH))!=0 && errno!=EEXIST) {
-        printf("cannot create directory: %s -- %s\n",folder,strerror(errno));
-        exit(EXIT_FAILURE);
+        /* printf("cannot create directory: %s -- %s\n",folder,strerror(errno));
+           exit(EXIT_FAILURE);*/
+        if (mkdir(folder,(S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH))!=0 && errno!=EEXIST) {
+            printf("cannot create directory: %s -- %s\n",folder,strerror(errno));
+            exit(EXIT_FAILURE);
         }
-    if(chdir(folder)!=0) {
-        printf("cannot create directory: %s -- %s\n",folder,strerror(errno));
-        exit(EXIT_FAILURE);
-    }  
-        
+        if(chdir(folder)!=0) {
+            printf("cannot create directory: %s -- %s\n",folder,strerror(errno));
+            exit(EXIT_FAILURE);
+        }
+
     }
-    
+
     switch(itr) {
     case 0:
         strcpy(filename,"seg_bck.pgm");
@@ -72,9 +72,9 @@ void writeImage(int ***imageMatrix,int y,int x) {
         exit(EXIT_FAILURE);
     }
     /*if(chdir("..")!=0) {
-        printf("cannot create directory: %s -- %s\n",folder,strerror(errno));
-        exit(EXIT_FAILURE);*/
+      printf("cannot create directory: %s -- %s\n",folder,strerror(errno));
+      exit(EXIT_FAILURE);*/
     chdir("..");
-    
+
 }
 
